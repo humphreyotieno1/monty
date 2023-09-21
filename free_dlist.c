@@ -1,21 +1,19 @@
 #include "monty.h"
 
 /**
- * free_dlist - free doubly linked list
- * @h: ptr to head of list
+ * free_dlist - frees a doubly linked list with only int data, no strings
+ * @h: pointer to head of list
  */
-
 void free_dlist(stack_t **h)
 {
-	stack_t *current;
-
-	if (h == NULL || *h == NULL)
+	/* return if empty list */
+	if (!h)
 		return;
 
-	while (*h != NULL)
+	while (*h && (*h)->next)
 	{
-		current = *h;
 		*h = (*h)->next;
-		free(current);
+		free((*h)->prev);
 	}
+	free(*h);
 }

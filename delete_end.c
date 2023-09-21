@@ -1,28 +1,24 @@
 #include "monty.h"
 
 /**
- * delete_end_node - delete last node in a doubly linked list
- * @h: ptr to head of list
+ * delete_end_node - deletes node at end of doubly linked list
+ * @h: pointer to head of doubly linked list
  */
-
 void delete_end_node(stack_t **h)
 {
-	stack_t *current, *prev;
+	stack_t *del = NULL;
 
-	if (h == NULL || *h == NULL)
-		return;
-
-	current = *h;
-	while (current->next != NULL)
+	/* account for only one node in list */
+	del = *h;
+	if ((*h)->next == NULL)
 	{
-		prev = current;
-		current = current->next;
-	}
-
-	if (prev != NULL)
-		prev->next = NULL;
-	else
 		*h = NULL;
-
-	free(current);
+		free(del);
+	}
+	else /* else delete front, and link correctly */
+	{
+		*h = (*h)->next;
+		(*h)->prev = NULL;
+		free(del);
+	}
 }
